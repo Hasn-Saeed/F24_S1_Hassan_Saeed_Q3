@@ -60,6 +60,7 @@ class QuickSortTest {
         Integer[] expected = {2, 2, 2, 2, 2};
         com.jwetherell.algorithms.sorts.QuickSort.resetSwapCount(); // Check if swapping is happening
         Integer[] result = com.jwetherell.algorithms.sorts.QuickSort.sort(com.jwetherell.algorithms.sorts.QuickSort.PIVOT_TYPE.RANDOM, input);
+        assertArrayEquals(expected, result, Arrays.toString(result));
         assertEquals(0, com.jwetherell.algorithms.sorts.QuickSort.getSwapCount());
     }
 

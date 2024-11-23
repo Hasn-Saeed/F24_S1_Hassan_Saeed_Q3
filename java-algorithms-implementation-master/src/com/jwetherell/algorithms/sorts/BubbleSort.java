@@ -22,7 +22,7 @@ public class BubbleSort<T extends Comparable<T>> {
 
     private BubbleSort() { }
 
-    private static int swapCount = 0;
+    private static int swapCount = 0; // Test to see if bubblesort will swap the array of identical elements
     //@param unsorted array
     //@return sorted array
     public static <T extends Comparable<T>> T[] sort(T[] unsorted) {
@@ -31,7 +31,7 @@ public class BubbleSort<T extends Comparable<T>> {
         while (swapped) {
             swapped = false;
             for (int i = 1; i < length; i++) {
-                if (unsorted[i].compareTo(unsorted[i - 1]) > 0) {
+                if (unsorted[i].compareTo(unsorted[i - 1]) < 0) { // Changed > to < to fix ascending sort
                     swap(i, i - 1, unsorted);
                     swapped = true;
                 }
@@ -46,14 +46,14 @@ public class BubbleSort<T extends Comparable<T>> {
         unsorted[index1] = unsorted[index2];
         unsorted[index2] = value;
 
-        swapCount++;
+        swapCount++; // Increment swapcount
     }
 
-    public static int getSwapCount(){
+    public static int getSwapCount(){ // Getter function
         return swapCount;
     }
 
-    public static void resetSwapCount(){
+    public static void resetSwapCount(){ // Reset function
         swapCount = 0;
     }
 }

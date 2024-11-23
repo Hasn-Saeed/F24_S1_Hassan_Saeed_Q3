@@ -28,29 +28,31 @@ public class QuickSort<T extends Comparable<T>> {
     }
 
     public static PIVOT_TYPE type = PIVOT_TYPE.RANDOM;
-    public static int swapCount = 0;
+    public static int swapCount = 0; // To test if duplicates are being swapped since already in order
 
     private QuickSort() { }
 
     public static <T extends Comparable<T>> T[] sort(PIVOT_TYPE pivotType, T[] unsorted) {
+        resetSwapCount();
         int pivot = 0;
         if (pivotType == PIVOT_TYPE.MIDDLE) {
             pivot = unsorted.length/2;
         } else if (pivotType == PIVOT_TYPE.RANDOM) {
-            pivot = getRandom(unsorted.length) + 1;  
+            pivot = getRandom(unsorted.length);
         }
-        resetSwapCount();
         sort(pivot, 0, unsorted.length - 1, unsorted);
         return unsorted;
     }
 
     private static <T extends Comparable<T>> void sort(int index, int start, int finish, T[] unsorted) {
-        int pivotIndex = start + index;
-        T pivot = unsorted[pivotIndex];
+        if (start >= finish) {
+            return; // If arrays have 0 or 1 element, does not need sorting
+        }
+        T pivot = unsorted[start + index];
         int s = start;
         int f = finish;
         while (s <= f) {
-            while (unsorted[s].compareTo(pivot) <= 0)
+            while (unsorted[s].compareTo(pivot) < 0) // Changed to < from <= to fix ascending order
                 s++;
             while (unsorted[f].compareTo(pivot) > 0)
                 f--;
@@ -61,11 +63,11 @@ public class QuickSort<T extends Comparable<T>> {
             }
         }
         if (start < f) {
-            pivotIndex = getRandom((f - start) + 1);
+            int pivotIndex = getRandom((f - start) + 1);
             sort(pivotIndex, start, f, unsorted);
         }
         if (s < finish) {
-            pivotIndex = getRandom((finish - s) + 1);
+            int pivotIndex = getRandom((finish - s) + 1);
             sort(pivotIndex, s, finish, unsorted);
         }
     }
@@ -82,14 +84,14 @@ public class QuickSort<T extends Comparable<T>> {
         T index2Element = unsorted[index1];
         unsorted[index1] = unsorted[index2];
         unsorted[index2] = index2Element;
-        swapCount++;
+        swapCount++; // Increment swapcount
     }
 
-    public static int getSwapCount(){
+    public static int getSwapCount(){ // Getter function
         return swapCount;
     }
 
-    public static void resetSwapCount(){
+    public static void resetSwapCount(){ // Reset function
         swapCount = 0;
     }
 }
