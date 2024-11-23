@@ -21,6 +21,8 @@ package com.jwetherell.algorithms.sorts;
 public class BubbleSort<T extends Comparable<T>> {
 
     private BubbleSort() { }
+
+    private static int swapCount = 0;
     //@param unsorted array
     //@return sorted array
     public static <T extends Comparable<T>> T[] sort(T[] unsorted) {
@@ -43,5 +45,15 @@ public class BubbleSort<T extends Comparable<T>> {
         T value = unsorted[index1];
         unsorted[index1] = unsorted[index2];
         unsorted[index2] = value;
+
+        swapCount++;
+    }
+
+    public static int getSwapCount(){
+        return swapCount;
+    }
+
+    public static void resetSwapCount(){
+        swapCount = 0;
     }
 }

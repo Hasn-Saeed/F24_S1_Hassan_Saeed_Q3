@@ -28,6 +28,7 @@ public class QuickSort<T extends Comparable<T>> {
     }
 
     public static PIVOT_TYPE type = PIVOT_TYPE.RANDOM;
+    public static int swapCount = 0;
 
     private QuickSort() { }
 
@@ -38,6 +39,7 @@ public class QuickSort<T extends Comparable<T>> {
         } else if (pivotType == PIVOT_TYPE.RANDOM) {
             pivot = getRandom(unsorted.length) + 1;  
         }
+        resetSwapCount();
         sort(pivot, 0, unsorted.length - 1, unsorted);
         return unsorted;
     }
@@ -80,5 +82,14 @@ public class QuickSort<T extends Comparable<T>> {
         T index2Element = unsorted[index1];
         unsorted[index1] = unsorted[index2];
         unsorted[index2] = index2Element;
+        swapCount++;
+    }
+
+    public static int getSwapCount(){
+        return swapCount;
+    }
+
+    public static void resetSwapCount(){
+        swapCount = 0;
     }
 }
